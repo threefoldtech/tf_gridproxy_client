@@ -14,7 +14,7 @@ export function assertNumber(value: number): void | never {
 
 export function assertInt(value: number): void | never {
   assertNumber(value)
-  isInt(value) && panic(value, "Int")
+  !isInt(value) && panic(value, "Int")
 }
 
 /**

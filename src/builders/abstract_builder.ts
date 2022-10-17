@@ -40,14 +40,15 @@ export abstract class AbstractBuilder<T> {
     assertString(path)
     assertPattern(path, /^\//)
 
-    let out: string[] = []
+    const out: string[] = []
 
     for (const key in this.__queries) {
       this.__validator[key](this.__queries[key]!)
       out.push(`${this.__mapper[key]}=${this.__queries[key]}`)
     }
 
-    const response = await fetch(`${this.uri}${path}?${out.join("&")}`)
+    const query = out.length > 0 ? `?${out.join("&")}` : ""
+    const response = await fetch(`${this.uri}${path}${query}`)
     return response.json()
   }
 }
