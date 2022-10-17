@@ -47,7 +47,7 @@ export abstract class AbstractBuilder<T> {
       out.push(`${this.__mapper[key]}=${this.__queries[key]}`)
     }
 
-    const response = await fetch(`${this.uri}/${path}?${out.join("&")}`)
+    const response = await fetch(`${this.uri}${path}?${out.join("&")}`)
     return response.json()
   }
 }
