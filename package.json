@@ -1,5 +1,5 @@
 {
-  "name": "@gridproxy/client",
+  "name": "gridproxy_client",
   "version": "1.0.0",
   "description": "gridproxy_client help to interact with gridproxy based on network",
   "main": "dist/public_api.js",
