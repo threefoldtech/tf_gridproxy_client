@@ -29,7 +29,7 @@ export abstract class AbstractBuilder<T> {
     for (const key of Object.keys(self.__mapper)) {
       Object.defineProperty(self, key, {
         value(value: any) {
-          self.__queries[key] = value
+          self.__queries[key as any] = value
           return self
         },
       })

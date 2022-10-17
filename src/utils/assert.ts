@@ -46,5 +46,5 @@ export function assertBoolean(value: boolean): void | never {
 }
 
 export function assertPattern(value: string, pattern: RegExp): void | never {
-  !pattern.test(value) && panic(value, pattern)
+  !pattern.test(value) && panic(value, `${pattern}`)
 }
