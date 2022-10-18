@@ -43,8 +43,10 @@ export abstract class AbstractBuilder<T> {
     const out: string[] = []
 
     for (const key in this.__queries) {
-      this.__validator[key](this.__queries[key]!)
-      out.push(`${this.__mapper[key]}=${this.__queries[key]}`)
+      if (this.__queries[key] !== undefined && this.__queries[key] !== null) {
+        this.__validator[key](this.__queries[key]!)
+        out.push(`${this.__mapper[key]}=${this.__queries[key]}`)
+      }
     }
 
     const query = out.length > 0 ? `?${out.join("&")}` : ""
