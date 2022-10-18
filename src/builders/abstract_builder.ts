@@ -53,6 +53,6 @@ export abstract class AbstractBuilder<T> {
   }
 }
 
-export type BuilderMethods<T> = {
-  [K in keyof T]: (value: T[K]) => AbstractBuilder<T>
+export type BuilderMethods<T, B> = {
+  [K in keyof T]: (value: T[K]) => B
 }

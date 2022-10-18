@@ -40,4 +40,5 @@ export class TwinsBuilder extends AbstractBuilder<TwinsQuery> {
   }
 }
 
-export interface TwinsBuilder extends BuilderMethods<TwinsQuery> {}
+export interface TwinsBuilder
+  extends BuilderMethods<TwinsQuery, TwinsBuilder> {}

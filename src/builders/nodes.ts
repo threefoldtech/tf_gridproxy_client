@@ -100,4 +100,5 @@ export class NodesBuilder extends AbstractBuilder<NodesQuery> {
   }
 }
 
-export interface NodesBuilder extends BuilderMethods<NodesQuery> {}
+export interface NodesBuilder
+  extends BuilderMethods<NodesQuery, NodesBuilder> {}

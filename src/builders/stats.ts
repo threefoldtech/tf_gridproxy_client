@@ -31,4 +31,5 @@ export class StatsBuilder extends AbstractBuilder<StatsQuery> {
   }
 }
 
-export interface StatuBuilder extends BuilderMethods<StatsQuery> {}
+export interface StatuBuilder
+  extends BuilderMethods<StatsQuery, StatuBuilder> {}
