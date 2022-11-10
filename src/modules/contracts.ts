@@ -1,10 +1,9 @@
-import { resolvePaginator } from "utils"
+import { resolvePaginator } from "../utils"
 import {
   ContractsBuilder,
   ContractsQuery,
   ContractState,
   ContractType,
-  Pagination,
 } from "../builders/public_api"
 import { AbstractClient } from "./abstract_client"
 

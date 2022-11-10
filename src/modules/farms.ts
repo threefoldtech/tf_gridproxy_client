@@ -1,4 +1,4 @@
-import { resolvePaginator } from "utils"
+import { resolvePaginator } from "../utils"
 import {
   CertificationType,
   FarmsBuilder,

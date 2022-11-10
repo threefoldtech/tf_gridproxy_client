@@ -1,4 +1,4 @@
-import { resolvePaginator } from "utils"
+import { resolvePaginator } from "../utils"
 import { NodesBuilder, NodesQuery } from "../builders/nodes"
 import { AbstractClient } from "./abstract_client"
 import { GridNode } from "./gateways"
