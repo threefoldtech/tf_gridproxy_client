@@ -5,7 +5,7 @@ import {
   GatewaysQuery,
   NodeStatus,
 } from "../builders/public_api"
-import { assertId } from "../utils"
+import { assertId, resolvePaginator } from "../utils"
 
 export interface Resources {
   cru: number
@@ -59,12 +59,14 @@ export class GatewaysClient extends AbstractClient<
     })
   }
 
-  public list(queries: Partial<GatewaysQuery> = {}): Promise<GridNode[]> {
-    return this.builder(queries).build<GridNode[]>("/gateways")
+  public async list(queries: Partial<GatewaysQuery> = {}) {
+    const res = await this.builder(queries).build("/gateways")
+    return resolvePaginator<GridNode[]>(res)
   }
 
-  public byId(nodeId: number): Promise<GridNode> {
+  public async byId(nodeId: number): Promise<GridNode> {
     assertId(nodeId)
-    return this.builder({}).build<GridNode>(`/gateways/${nodeId}`)
+    const res = await this.builder({}).build(`/gateways/${nodeId}`)
+    return res.json()
   }
 }

@@ -1,8 +1,10 @@
+import { resolvePaginator } from "utils"
 import {
   ContractsBuilder,
   ContractsQuery,
   ContractState,
   ContractType,
+  Pagination,
 } from "../builders/public_api"
 import { AbstractClient } from "./abstract_client"
 
@@ -48,7 +50,8 @@ export class ContractsClient extends AbstractClient<
     })
   }
 
-  public list(queries: Partial<ContractsQuery> = {}): Promise<Contract[]> {
-    return this.builder(queries).build<Contract[]>("/contracts")
+  public async list(queries: Partial<ContractsQuery> = {}) {
+    const res = await this.builder(queries).build("/contracts")
+    return resolvePaginator<Contract[]>(res)
   }
 }

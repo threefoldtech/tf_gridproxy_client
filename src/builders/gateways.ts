@@ -21,7 +21,7 @@ export enum NodeStatus {
 export interface GatewaysQuery {
   page: number
   size: number
-  retCount: number
+  retCount: boolean
   freeMru: number
   freeHru: number
   freeSru: number
@@ -66,7 +66,7 @@ export const ID_PATTERN = /^\d+$/
 const GATEWAYS_VALIDATOR: BuilderValidator<GatewaysQuery> = {
   page: assertNatural,
   size: assertNatural,
-  retCount: assertNatural,
+  retCount: assertBoolean,
   freeMru: assertNatural,
   freeHru: assertNatural,
   freeSru: assertNatural,

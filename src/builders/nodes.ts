@@ -17,7 +17,7 @@ import { ID_PATTERN, NodeStatus } from "./gateways"
 export interface NodesQuery {
   page: number
   size: number
-  retCount: number
+  retCount: boolean
   freeMru: number
   freeHru: number
   freeSru: number
@@ -63,7 +63,7 @@ const NODES_MAPPER: BuilderMapper<NodesQuery> = {
 const NODES_VALIDATOR: BuilderValidator<NodesQuery> = {
   page: assertNatural,
   size: assertNatural,
-  retCount: assertNatural,
+  retCount: assertBoolean,
   freeMru: assertNatural,
   freeHru: assertNatural,
   freeSru: assertNatural,

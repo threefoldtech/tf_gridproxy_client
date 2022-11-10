@@ -1,4 +1,4 @@
-import { assertId, assertNatural } from "../utils"
+import { assertBoolean, assertId, assertNatural } from "../utils"
 import {
   AbstractBuilder,
   BuilderMapper,
@@ -9,7 +9,7 @@ import {
 export interface TwinsQuery {
   page: number
   size: number
-  retCount: number
+  retCount: boolean
   twinId: number
   accountId: number
 }
@@ -25,7 +25,7 @@ const TWINS_MAPPER: BuilderMapper<TwinsQuery> = {
 const TWINS_VALIDATOR: BuilderValidator<TwinsQuery> = {
   page: assertNatural,
   size: assertNatural,
-  retCount: assertNatural,
+  retCount: assertBoolean,
   twinId: assertId,
   accountId: assertId,
 }

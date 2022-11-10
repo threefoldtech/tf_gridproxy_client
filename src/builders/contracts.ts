@@ -4,7 +4,7 @@ import {
   BuilderMethods,
   BuilderValidator,
 } from "./abstract_builder"
-import { assertId, assertIn, assertNatural, assertString } from "../utils"
+import { assertBoolean, assertId, assertIn, assertNatural, assertString } from "../utils"
 
 export enum ContractType {
   Node = "node",
@@ -21,7 +21,7 @@ export enum ContractState {
 export interface ContractsQuery {
   page: number
   size: number
-  retCount: number
+  retCount: boolean
   contractId: number
   twinId: number
   nodeId: number
@@ -51,7 +51,7 @@ const CONTRACTS_MAPPER: BuilderMapper<ContractsQuery> = {
 const CONTRACTS_VALIDATOR: BuilderValidator<ContractsQuery> = {
   page: assertNatural,
   size: assertNatural,
-  retCount: assertNatural,
+  retCount: assertBoolean,
   contractId: assertId,
   twinId: assertId,
   nodeId: assertId,

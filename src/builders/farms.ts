@@ -21,7 +21,7 @@ export enum CertificationType {
 export interface FarmsQuery {
   page: number
   size: number
-  retCount: number
+  retCount: boolean
   freeIps: number
   totalIps: number
   pricingPolicyId: number
@@ -55,7 +55,7 @@ const FARMS_MAPPER: BuilderMapper<FarmsQuery> = {
 const FARMS_VALIDATOR: BuilderValidator<FarmsQuery> = {
   page: assertNatural,
   size: assertNatural,
-  retCount: assertNatural,
+  retCount: assertBoolean,
   freeIps: assertNatural,
   totalIps: assertNatural,
   pricingPolicyId: assertId,

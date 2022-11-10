@@ -1,3 +1,4 @@
+import { resolvePaginator } from "utils"
 import {
   CertificationType,
   FarmsBuilder,
@@ -32,7 +33,8 @@ export class FarmsClient extends AbstractClient<FarmsBuilder, FarmsQuery> {
     })
   }
 
-  public list(queries: Partial<FarmsQuery> = {}) {
-    return this.builder(queries).build<Farm[]>("/farms")
+  public async list(queries: Partial<FarmsQuery> = {}) {
+    const res = await this.builder(queries).build("/farms")
+    return resolvePaginator<Farm[]>(res)
   }
 }

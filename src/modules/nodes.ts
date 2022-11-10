@@ -1,3 +1,4 @@
+import { resolvePaginator } from "utils"
 import { NodesBuilder, NodesQuery } from "../builders/nodes"
 import { AbstractClient } from "./abstract_client"
 import { GridNode } from "./gateways"
@@ -10,11 +11,13 @@ export class NodesClient extends AbstractClient<NodesBuilder, NodesQuery> {
     })
   }
 
-  public list(queries: Partial<NodesQuery> = {}): Promise<GridNode[]> {
-    return this.builder(queries).build<GridNode[]>("/nodes")
+  public async list(queries: Partial<NodesQuery> = {}) {
+    const res = await this.builder(queries).build("/nodes")
+    return resolvePaginator<GridNode[]>(res)
   }
 
-  public byId(nodeId: number): Promise<GridNode> {
-    return this.builder({}).build<GridNode>(`/nodes/${nodeId}`)
+  public async byId(nodeId: number): Promise<GridNode> {
+    const res = await this.builder({}).build(`/nodes/${nodeId}`)
+    return res.json()
   }
 }

@@ -1,3 +1,4 @@
+import { resolvePaginator } from "utils"
 import { TwinsBuilder, TwinsQuery } from "../builders/twins"
 import { AbstractClient } from "./abstract_client"
 
@@ -15,7 +16,8 @@ export class TwinsClient extends AbstractClient<TwinsBuilder, TwinsQuery> {
     })
   }
 
-  public list(queries: Partial<TwinsQuery> = {}): Promise<Twin[]> {
-    return this.builder(queries).build<Twin[]>("/twins")
+  public async list(queries: Partial<TwinsQuery> = {}) {
+    const res = await this.builder(queries).build("/twins")
+    return resolvePaginator<Twin[]>(res)
   }
 }

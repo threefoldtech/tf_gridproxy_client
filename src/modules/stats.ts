@@ -25,7 +25,8 @@ export class StatsClient extends AbstractClient<StatsBuilder, StatsQuery> {
     })
   }
 
-  public get(queries: Partial<StatsQuery> = {}): Promise<Stats> {
-    return this.builder(queries).build<Stats>("/stats")
+  public async get(queries: Partial<StatsQuery> = {}): Promise<Stats> {
+    const res = await this.builder(queries).build("/stats")
+    return res.json()
   }
 }

@@ -14,6 +14,11 @@ export interface BuilderOptions<T> {
   queries: Partial<T>
 }
 
+export interface Pagination<T> {
+  count: number | null
+  data: T
+}
+
 export abstract class AbstractBuilder<T> {
   public abstract readonly uri: string
   private readonly __queries: Partial<T>
@@ -36,7 +41,7 @@ export abstract class AbstractBuilder<T> {
     }
   }
 
-  public async build<R>(path: string): Promise<R> {
+  public async build(path: string): Promise<Response> {
     assertString(path)
     assertPattern(path, /^\//)
 
@@ -56,8 +61,7 @@ export abstract class AbstractBuilder<T> {
     }
 
     const query = out.length > 0 ? `?${out.join("&")}` : ""
-    const response = await fetch(`${this.uri}${path}${query}`)
-    return response.json()
+    return fetch(`${this.uri}${path}${query}`)
   }
 }
 
