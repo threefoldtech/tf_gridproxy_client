@@ -18,7 +18,7 @@ export class NodesClient extends AbstractClient<NodesBuilder, NodesQuery> {
     })
 
     this.farms = new Map<number, Farm>()
-    this.getFarm = this.getFarm.bind(this)
+    this.setFarm = this.setFarm.bind(this)
   }
 
   public async list(
@@ -28,7 +28,8 @@ export class NodesClient extends AbstractClient<NodesBuilder, NodesQuery> {
     const res = await this.builder(queries).build("/nodes")
     const nodes = await resolvePaginator<GridNode[]>(res)
     if (extraOptions.loadFarm) {
-      nodes.data = await Promise.all(nodes.data.map(this.getFarm))
+      await this.loadFarms(nodes.data.map((n) => n.farmId))
+      nodes.data = nodes.data.map(this.setFarm)
     }
     return nodes
   }
@@ -40,21 +41,27 @@ export class NodesClient extends AbstractClient<NodesBuilder, NodesQuery> {
     const res = await this.builder({}).build(`/nodes/${nodeId}`)
     const node = await res.json()
     if (extraOptions.loadFarm && node) {
-      return this.getFarm(node)
+      await this.loadFarms([node.farmId])
+      return this.setFarm(node)
     }
     return node
   }
 
-  public async getFarm(node: GridNode): Promise<GridNode> {
-    if (this.farms.has(node.farmId)) {
-      node.farm = this.farms.get(node.farmId)!
-      return node
+  private async loadFarms(farmIds: number[]): Promise<void> {
+    farmIds = farmIds.filter((id) => !this.farms.has(id))
+    const ids = Array.from(new Set(farmIds))
+    if (ids.length) return
+    const farms = await Promise.all(
+      ids.map((id) => this.__farmsClient.list({ farmId: id }))
+    )
+    for (const { data } of farms) {
+      const [farm] = data
+      this.farms = this.farms.set(farm.farmId, farm)
     }
+  }
 
-    const { data } = await this.__farmsClient.list({ farmId: node.farmId })
-    const [farm] = data
-    this.farms = this.farms.set(node.farmId, farm)
-    node.farm = farm
+  private setFarm(node: GridNode): GridNode {
+    node.farm = this.farms.get(node.farmId)!
     return node
   }
 }
