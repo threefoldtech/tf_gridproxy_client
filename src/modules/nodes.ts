@@ -50,7 +50,7 @@ export class NodesClient extends AbstractClient<NodesBuilder, NodesQuery> {
   private async loadFarms(farmIds: number[]): Promise<void> {
     farmIds = farmIds.filter((id) => !this.farms.has(id))
     const ids = Array.from(new Set(farmIds))
-    if (ids.length) return
+    if (!ids.length) return
     const farms = await Promise.all(
       ids.map((id) => this.__farmsClient.list({ farmId: id }))
     )
