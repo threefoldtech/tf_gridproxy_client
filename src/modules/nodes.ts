@@ -9,7 +9,7 @@ export interface NodesExtractOptions {
 }
 
 export class NodesClient extends AbstractClient<NodesBuilder, NodesQuery> {
-  public readonly farms: Map<number, Farm>
+  public farms: Map<number, Farm>
 
   constructor(uri: string, private readonly __farmsClient: FarmsClient) {
     super({
@@ -53,7 +53,7 @@ export class NodesClient extends AbstractClient<NodesBuilder, NodesQuery> {
 
     const { data } = await this.__farmsClient.list({ farmId: node.farmId })
     const [farm] = data
-    this.farms.set(node.farmId, farm)
+    this.farms = this.farms.set(node.farmId, farm)
     node.farm = farm
     return node
   }
