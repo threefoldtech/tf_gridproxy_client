@@ -14,7 +14,6 @@ export enum Network {
 }
 
 export default class GridProxyClient {
-  private readonly __network: Network
   private readonly __uri: string
 
   public get uri(): string {
@@ -24,7 +23,6 @@ export default class GridProxyClient {
   constructor(network: Network) {
     assertIn(network, [Network.Main, Network.Test, Network.Dev, Network.Qa])
 
-    this.__network = network
     this.__uri =
       network === Network.Main
         ? "https://gridproxy.grid.tf"
@@ -33,7 +31,7 @@ export default class GridProxyClient {
     this.contracts = new ContractsClient(this.__uri)
     this.farms = new FarmsClient(this.__uri)
     this.gateways = new GatewaysClient(this.__uri)
-    this.nodes = new NodesClient(this.__uri)
+    this.nodes = new NodesClient(this.__uri, this.farms)
     this.stats = new StatsClient(this.__uri)
     this.twins = new TwinsClient(this.__uri)
   }

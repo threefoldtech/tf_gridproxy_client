@@ -6,6 +6,7 @@ import {
   NodeStatus,
 } from "../builders/public_api"
 import { assertId, resolvePaginator } from "../utils"
+import { Farm } from "./farms"
 
 export interface Resources {
   cru: number
@@ -46,6 +47,7 @@ export interface GridNode {
   dedicated: boolean
   rentContractId: number
   rentedByTwinId: number
+  farm: Farm
 }
 
 export class GatewaysClient extends AbstractClient<
