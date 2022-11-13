@@ -35,6 +35,7 @@ export interface NodesQuery {
   rentedBy: number
   availableFor: number
   farmIds: string
+  nodeId: number;
 }
 
 const NODES_MAPPER: BuilderMapper<NodesQuery> = {
@@ -58,6 +59,7 @@ const NODES_MAPPER: BuilderMapper<NodesQuery> = {
   rentedBy: "rented_by",
   availableFor: "available_for",
   farmIds: "farm_ids",
+  nodeId: "node_id",
 }
 
 const NODES_VALIDATOR: BuilderValidator<NodesQuery> = {
@@ -88,6 +90,7 @@ const NODES_VALIDATOR: BuilderValidator<NodesQuery> = {
       assertId(+id)
     })
   },
+  nodeId: assertId
 }
 
 export class NodesBuilder extends AbstractBuilder<NodesQuery> {
