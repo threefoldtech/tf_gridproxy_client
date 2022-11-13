@@ -26,7 +26,7 @@ export interface NodesQuery {
   city: string
   country: string
   farmName: string
-  domain: string
+  domain: boolean
   ipv4: boolean
   ipv6: boolean
   dedicated: boolean
@@ -74,7 +74,7 @@ const NODES_VALIDATOR: BuilderValidator<NodesQuery> = {
   city: assertString,
   country: assertString,
   farmName: assertString,
-  domain: assertString,
+  domain: assertBoolean,
   ipv4: assertBoolean,
   ipv6: assertBoolean,
   dedicated: assertBoolean,
