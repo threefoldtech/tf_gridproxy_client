@@ -3,6 +3,7 @@ import { NodesBuilder, type NodesQuery } from "../builders/nodes"
 import { AbstractClient } from "./abstract_client"
 import type { GridNode } from "./gateways"
 import type { Farm, FarmsClient } from "./farms"
+import type { Pagination } from "../builders/abstract_builder"
 
 export interface NodesExtractOptions {
   loadFarm?: boolean
@@ -45,6 +46,22 @@ export class NodesClient extends AbstractClient<NodesBuilder, NodesQuery> {
       return this.setFarm(node)
     }
     return node
+  }
+
+  public async listAll(queries: Partial<NodesQuery> = {}) {
+    const { count } = await this.list({
+      ...queries,
+      size: 50,
+      page: 1,
+      retCount: true,
+    })
+    const promises: Promise<Pagination<GridNode[]>>[] = []
+    const pages = Math.ceil(count! / 50)
+    for (let i = 0; i < pages; i++) {
+      promises.push(this.list({ ...queries, size: 50, page: i + 1 }))
+    }
+    const nodes = await Promise.all(promises)
+    return nodes.map((node) => node.data).flat(1)
   }
 
   private async loadFarms(farmIds: number[]): Promise<void> {
