@@ -13,7 +13,7 @@
     "strict": true,
     "skipLibCheck": true,
     "noImplicitAny": false,
-    "lib": ["es2019"]
+    "lib": ["es2019", "DOM"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "tests"]
