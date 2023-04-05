@@ -1,6 +1,6 @@
 {
   "name": "tf_gridproxy_client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "gridproxy_client help to interact with gridproxy based on network",
   "main": "dist/public_api.js",
   "types": "dist/public_api.d.ts",
